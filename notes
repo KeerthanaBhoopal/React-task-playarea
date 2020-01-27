@@ -1,0 +1,59 @@
+1. create the folders
+/actions
+/reducers
+/store
+
+2. create a file called as configureStore inside store folder /store/configureStore.js
+    install redux(npm install redux)
+
+    import {createStore, combineReducers}from 'redux'
+    import countReducer from '../reducers/count'
+
+    const configureStore=()=>{
+        const store = createStore(combineReducers({
+            count:countReducer
+        }))
+        return store
+    }
+
+    export default configureStore
+
+3. create countReducer under reducer folder /reducer/count.js
+
+    const countReducer= (state=0, action)=>{
+        switch(action.type){
+            default: return state
+        }
+    }
+
+    export default countReducer
+
+4. in index.js
+    setup redux store
+
+    import configureStore from './store/configureStore'
+
+    const store =configureStore()
+    store.subscribe(()=>{
+        console.log(store.getState())
+    })
+    console.log(store.getState())
+
+5. create count.js in action folder /actions/count.js
+    export const increment=()=>{
+    return {type:'INCREMENT'}
+    }
+
+    export const decrement=()=>{
+        return {type:'DECREMENT'}
+    }
+
+6. update countReducer
+     case 'INCREMENT':{
+            return state+1
+        }
+
+7. invoke the action in the index.js file
+
+    import {increment} from './actions/count'
+    store.dispatch(increment())
